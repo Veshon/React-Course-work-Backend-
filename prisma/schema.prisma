@@ -19,3 +19,10 @@ model Customer {
   email String @unique
   phone String
 }
+
+model Item {
+  id          Int    @id @default(autoincrement())
+  description String @unique
+  price       Int
+  qty         Int
+}
