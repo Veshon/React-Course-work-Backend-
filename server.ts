@@ -2,6 +2,7 @@ import express from 'express';
 import customerRoutes from "./routes/customer-routes";
 import dotenv from 'dotenv';
 import itemRoutes from "./routes/item-routes";
+import employeeRoutes from "./routes/employee-routes";
 dotenv.config();
 const app = express();
 
@@ -15,6 +16,7 @@ app.use('/',(req,res,next)=>{
 })
 app.use('/customer',customerRoutes);
 app.use('/item',itemRoutes);
+app.use('/employee',employeeRoutes);
 
 app.listen(3000, (err=>{
     console.log("Server running on port 3000");

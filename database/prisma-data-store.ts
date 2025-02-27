@@ -1,6 +1,7 @@
 import {PrismaClient} from '@prisma/client';
 import Customer from "../model/Customer";
 import Item from "../model/Item";
+import Employee from "../model/Employee";
 
 const prisma = new PrismaClient();
 
@@ -108,4 +109,59 @@ export async function ItemUpdate(id: number, i: Item){
         console.log("error updating item", err);
     }
 }
+
+////////////////////////////////////Employee////////////////////////////////////
+export async function EmployeeAdd(e: Employee){
+    try{
+        const newEmployee  = await prisma.employee.create({
+            data:{
+                name: e.name,
+                email: e.email,
+                position: e.position,
+            }
+        })
+        console.log('Employee Added :',newEmployee)
+        return newEmployee;
+    }catch(err) {
+        console.log("error adding employee", err);
+    }
+}
+
+export async function EmployeeDelete(email:string) {
+    try{
+        const deleteEmployee = await prisma.employee.delete({
+            where: {email: email}
+        });
+        console.log('employee deleted :',email);
+        return deleteEmployee;
+    }catch(err){
+        console.log("error deleting employee", err);
+    }
+}
+
+export async function getAllEmployee(){
+    try{
+        return await prisma.employee.findMany();
+    }catch(err){
+        console.log("error getting employees from prisma data",err);
+    }
+}
+
+export async function EmployeeUpdate(id: number, e: Employee){
+    try{
+        const updateEmployee = await prisma.employee.update({
+            where:{ email : e.email},
+            data:{
+                name: e.name,
+                position: e.position
+            }
+        })
+        console.log('Employee updated :',updateEmployee);
+        return updateEmployee;
+    }catch(err){
+        console.log("error updating employee", err);
+    }
+}
+
+
 
